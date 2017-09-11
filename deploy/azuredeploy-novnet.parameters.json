@@ -1,0 +1,44 @@
+﻿{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "vmSku": {
+      "value": "Standard_DS2_v2"
+    },
+    "vmssName": {
+      "value": "frtbvmss"
+    },
+    "instanceCount": {
+      "value": 1
+    },
+    "adminUsername": {
+      "value": "veritas"
+    },
+    "sshPublicKey": {
+      "value": "---- BEGIN SSH2 PUBLIC KEY ----
+Comment: \"rsa-key-20170706\"
+AAAAB3NzaC1yc2EAAAABJQAAAQEAkBHZcSQuEvqlK7uoNn5iIh1x4voo6GfioeQY
+2tOclmMhlsAAjPLd7YeSySs/epc2QD2ZCYPGiNFyJ1EU1l9CgdZYHTU55FYC873D
+PkF4lrNL9jwDnFqKz3LhcIhZaPGAUVUy04MTkvonmRTLOLuqjp4yYEKwkbNbPfD7
+kaCj1MUa9iF3e0QBWBrUq/QJ+5zMX57yy7PZ2cl7h9/MHvfIB6mtt5RpH5z9Y7Mv
+QDOEhXXpiZLNc4K/7i2iTv7IvEc8uaLWcB1BHkc14zDmrCIaHQ2fIshyqhIKCr+V
+EqC0t2YajYzg3xNrpcU29yyWrrE8gOS3MF4HJ99Oeof6N2txiw==
+---- END SSH2 PUBLIC KEY ----"
+    },
+    "osType": {
+      "value": "Linux"
+    },
+    "osDiskName": {
+      "value": "osdisk_82kBNN4CS6"
+    },
+    "subnetname": {
+      "value": "default"
+    },
+    "virtualnetworkName": {
+      "value": "markit-vnet"
+    },
+    "virtualnetworkNameRGName": {
+      "value": "MarkIT-Network"
+    }
+  }
+}

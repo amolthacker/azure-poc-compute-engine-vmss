@@ -1,0 +1,54 @@
+#!/bin/bash
+
+
+usage(){
+	echo "Usage: $0 "
+	echo "  -n, --num-jobs    <num_jobs>            : No.of Valuation Jobs"
+	echo "  -s, --compute-svc <compute_svc_address> : Compute Service DNS/PIP"
+	echo "  -h, --help                              : Help"
+	exit 1
+}
+
+[[ $# -ne 4 ]] && usage
+
+while [[ $# -gt 1 ]]
+do
+key="$1"
+
+case $key in
+    -n|--num-jobs)
+    NUM_JOBS="$2"
+    shift
+    ;;
+    -s|--compute-svc)
+    COMPUTE_SVC="$2"
+    shift
+    ;;
+    -h|--help)
+    usage
+    shift
+    ;;
+    *)
+    ;;
+esac
+shift # past argument or value
+done
+
+APP_PATH_BASE="$HOME/compute"
+LOG_BASE="/var/log/veritas"
+APP="$APP_PATH_BASE/eodservice.go"
+LOG="$LOG_BASE/eodservice.log"
+
+metrics=( "FwdRate" "NPV" "OptionPV" "Pi" "IRDelta" )
+
+for (( i=1; i<=$NUM_JOBS; i++))
+do
+    rand_metric=${metrics[ RANDOM % ${#metrics[@]} ]}
+    job_id=$(( ( RANDOM % 1000 )  + 1 ))
+    num_trades_in_job=$(( ( RANDOM % 99 )  + 1 ))
+    #log="$LOG_BASE-$job_id-$rand_metric.log"
+
+    nohup go run $APP $job_id $COMPUTE_SVC $rand_metric $num_trades_in_job >>$LOG 2>&1 &
+    echo "Submitted Job $job_id : $rand_metric for $num_trades_in_job trades ..."
+    sleep 1
+done
